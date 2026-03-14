@@ -2,7 +2,7 @@ import { WeekPlan } from '@/lib/types';
 import { getDayNameSpanish } from '@/lib/scheduling';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Dumbbell, Wind, Activity, Heart, Zap } from 'lucide-react';
+import { Dumbbell, Activity, Heart, Zap, Shield } from 'lucide-react';
 
 interface WeeklyScheduleAutoProps {
   weekPlan: WeekPlan;
@@ -11,9 +11,10 @@ interface WeeklyScheduleAutoProps {
 function getSessionIcon(type: string | undefined) {
   switch (type) {
     case 'gym':
+    case 'functional-strength':
       return <Dumbbell className="w-4 h-4" />;
-    case 'stretching':
-      return <Wind className="w-4 h-4" />;
+    case 'healthy-back':
+      return <Shield className="w-4 h-4" />;
     case 'mobility':
       return <Activity className="w-4 h-4" />;
     case 'balance':
@@ -29,8 +30,10 @@ function getSessionColor(type: string | undefined): string {
   switch (type) {
     case 'gym':
       return 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800';
-    case 'stretching':
+    case 'functional-strength':
       return 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800';
+    case 'healthy-back':
+      return 'bg-emerald-50 dark:bg-emerald-950 border-emerald-200 dark:border-emerald-800';
     case 'mobility':
       return 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800';
     case 'balance':
@@ -45,8 +48,9 @@ function getSessionColor(type: string | undefined): string {
 function getSessionBadgeVariant(type: string | undefined): 'default' | 'secondary' | 'outline' | 'destructive' {
   switch (type) {
     case 'gym':
+    case 'functional-strength':
       return 'default';
-    case 'stretching':
+    case 'healthy-back':
       return 'secondary';
     case 'mobility':
       return 'outline';

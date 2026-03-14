@@ -8,7 +8,7 @@ const espaldaSanaRoutines = [
     id: 1,
     slug: "espalda-1",
     title: "Sesión 1",
-    description: "Movilidad general de columna y estiramientos suaves.",
+    description: "Movilidad general de columna y alivio de tensión.",
     duration: "30-40 min",
     icon: Activity,
     color: "bg-emerald-100 text-emerald-600",
@@ -17,7 +17,7 @@ const espaldaSanaRoutines = [
     id: 2,
     slug: "espalda-2",
     title: "Sesión 2",
-    description: "Activación lumbar y ejercicios de estabilidad.",
+    description: "Activación lumbar y ejercicios de estabilidad profunda.",
     duration: "35-45 min",
     icon: Shield,
     color: "bg-sky-100 text-sky-600",
@@ -26,7 +26,7 @@ const espaldaSanaRoutines = [
     id: 3,
     slug: "espalda-3",
     title: "Sesión 3",
-    description: "Estiramientos profundos y relajación muscular.",
+    description: "Liberación fascial y relajación muscular de soporte.",
     duration: "30-40 min",
     icon: Sparkles,
     color: "bg-amber-100 text-amber-600",
@@ -35,7 +35,7 @@ const espaldaSanaRoutines = [
     id: 4,
     slug: "espalda-4",
     title: "Sesión 4",
-    description: "Movilidad torácica y apertura de pecho.",
+    description: "Movilidad torácica y apertura postural del pecho.",
     duration: "35-45 min",
     icon: Heart,
     color: "bg-rose-100 text-rose-600",
@@ -44,7 +44,7 @@ const espaldaSanaRoutines = [
     id: 5,
     slug: "espalda-5",
     title: "Sesión 5",
-    description: "Fortalecimiento suave de la zona lumbar.",
+    description: "Fortalecimiento seguro de la musculatura lumbar.",
     duration: "40-50 min",
     icon: Zap,
     color: "bg-teal-100 text-teal-600",
@@ -53,7 +53,7 @@ const espaldaSanaRoutines = [
     id: 6,
     slug: "espalda-6",
     title: "Sesión 6",
-    description: "Ejercicios de respiración y movilidad integrada.",
+    description: "Control motor y respiración para la columna.",
     duration: "30-40 min",
     icon: Flower2,
     color: "bg-purple-100 text-purple-600",
@@ -62,7 +62,7 @@ const espaldaSanaRoutines = [
     id: 7,
     slug: "espalda-7",
     title: "Sesión 7",
-    description: "Coordinación y control postural.",
+    description: "Coordinación postural dinámica diaria.",
     duration: "35-45 min",
     icon: Move,
     color: "bg-orange-100 text-orange-600",
@@ -71,7 +71,7 @@ const espaldaSanaRoutines = [
     id: 8,
     slug: "espalda-8",
     title: "Sesión 8",
-    description: "Sesión completa de movilidad y estiramiento.",
+    description: "Sesión integral de salud y bienestar de espalda.",
     duration: "40-50 min",
     icon: Activity,
     color: "bg-indigo-100 text-indigo-600",
@@ -83,7 +83,7 @@ const fuerzaEquilibrioRoutines = [
     id: 9,
     slug: "fuerza-1",
     title: "Sesión 1",
-    description: "Fortalecimiento básico de piernas.",
+    description: "Base funcional de fuerza para piernas y glúteos.",
     duration: "30-40 min",
     icon: Footprints,
     color: "bg-indigo-100 text-indigo-600",
@@ -92,7 +92,7 @@ const fuerzaEquilibrioRoutines = [
     id: 10,
     slug: "fuerza-2",
     title: "Sesión 2",
-    description: "Ejercicios de equilibrio estático y dinámico.",
+    description: "Estabilidad en apoyo y equilibrio funcional dinámico.",
     duration: "35-45 min",
     icon: Target,
     color: "bg-teal-100 text-teal-600",
@@ -101,7 +101,7 @@ const fuerzaEquilibrioRoutines = [
     id: 11,
     slug: "fuerza-3",
     title: "Sesión 3",
-    description: "Core y estabilidad lumbar.",
+    description: "Fortaleza en el core y control postural central.",
     duration: "30-40 min",
     icon: Shield,
     color: "bg-orange-100 text-orange-600",
@@ -110,7 +110,7 @@ const fuerzaEquilibrioRoutines = [
     id: 12,
     slug: "fuerza-4",
     title: "Sesión 4",
-    description: "Fuerza funcional de todo el cuerpo.",
+    description: "Integración funcional de fuerza de todo el cuerpo.",
     duration: "40-50 min",
     icon: Dumbbell,
     color: "bg-purple-100 text-purple-600",
@@ -119,7 +119,7 @@ const fuerzaEquilibrioRoutines = [
     id: 13,
     slug: "fuerza-5",
     title: "Sesión 5",
-    description: "Piernas y glúteos con trabajo de equilibrio.",
+    description: "Propiocepción avanzada combinada con fuerza.",
     duration: "35-45 min",
     icon: Zap,
     color: "bg-emerald-100 text-emerald-600",
@@ -128,7 +128,7 @@ const fuerzaEquilibrioRoutines = [
     id: 14,
     slug: "fuerza-6",
     title: "Sesión 6",
-    description: "Coordinación y propiocepción.",
+    description: "Coordinación motriz y equilibrio multiplanar.",
     duration: "30-40 min",
     icon: Move,
     color: "bg-sky-100 text-sky-600",
@@ -137,7 +137,7 @@ const fuerzaEquilibrioRoutines = [
     id: 15,
     slug: "fuerza-7",
     title: "Sesión 7",
-    description: "Fuerza de tren superior con estabilidad.",
+    description: "Fuerza funcional de tren superior y espalda.",
     duration: "35-45 min",
     icon: Heart,
     color: "bg-rose-100 text-rose-600",
@@ -146,7 +146,7 @@ const fuerzaEquilibrioRoutines = [
     id: 16,
     slug: "fuerza-8",
     title: "Sesión 8",
-    description: "Sesión completa de fuerza y equilibrio.",
+    description: "Circuito completo de capacidad funcional física.",
     duration: "40-50 min",
     icon: Dumbbell,
     color: "bg-amber-100 text-amber-600",
@@ -200,14 +200,14 @@ export function RoutineCards() {
   return (
     <section id="routines" className="px-4 py-12">
       <div className="mx-auto max-w-4xl">
-        {/* Category 1: Espalda Sana */}
+        {/* Category: Espalda Sana */}
         <div className="mb-12">
           <div className="mb-6 text-center">
             <h2 className="mb-2 text-2xl font-bold text-foreground md:text-3xl">
               Sesiones de Espalda Sana
             </h2>
             <p className="text-lg text-muted-foreground">
-              Sesiones centradas en movilidad de columna, activación lumbar y reducción de molestias de espalda.
+              Programas específicos de movilidad y fortalecimiento para cuidar tu columna y reducir molestias lumbares.
             </p>
           </div>
           
@@ -218,14 +218,14 @@ export function RoutineCards() {
           </div>
         </div>
 
-        {/* Category 2: Fuerza y Equilibrio */}
+        {/* Category: Fuerza Funcional y Equilibrio */}
         <div>
           <div className="mb-6 text-center">
             <h2 className="mb-2 text-2xl font-bold text-foreground md:text-3xl">
-              Sesiones de Fuerza y Equilibrio
+              Sesiones de Fuerza Funcional y Equilibrio
             </h2>
             <p className="text-lg text-muted-foreground">
-              Sesiones para fortalecer piernas, mejorar estabilidad y mantener una buena capacidad funcional.
+              Mejora tu capacidad funcional diaria, fortalece tu cuerpo y potencia tu estabilidad y coordinación.
             </p>
           </div>
           

@@ -3,7 +3,7 @@ import { VIDEOS, getCategoryLabel, getAllCategories } from '@/lib/video-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Wind, Activity, Zap, Clock } from 'lucide-react';
+import { Activity, Zap, Dumbbell, Shield, Clock } from 'lucide-react';
 
 interface VideoLibraryProps {
   onSelectVideo?: (videoId: string) => void;
@@ -11,14 +11,31 @@ interface VideoLibraryProps {
 
 function getCategoryIcon(category: string) {
   switch (category) {
-    case 'stretching':
-      return <Wind className="w-4 h-4" />;
     case 'mobility':
       return <Activity className="w-4 h-4" />;
     case 'balance':
       return <Zap className="w-4 h-4" />;
+    case 'functional-strength':
+      return <Dumbbell className="w-4 h-4" />;
+    case 'healthy-back':
+      return <Shield className="w-4 h-4" />;
     default:
       return null;
+  }
+}
+
+function getCategoryGradient(category: string) {
+  switch (category) {
+    case 'mobility':
+      return 'from-sky-100 to-cyan-50 dark:from-sky-900 dark:to-cyan-950';
+    case 'balance':
+      return 'from-amber-100 to-yellow-50 dark:from-amber-900 dark:to-yellow-950';
+    case 'functional-strength':
+      return 'from-purple-100 to-violet-50 dark:from-purple-900 dark:to-violet-950';
+    case 'healthy-back':
+      return 'from-emerald-100 to-green-50 dark:from-emerald-900 dark:to-green-950';
+    default:
+      return 'from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-950';
   }
 }
 
@@ -35,7 +52,7 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
         <CardHeader>
           <CardTitle className="text-2xl">Biblioteca de ejercicios</CardTitle>
           <CardDescription>
-            Explora nuestra colección de videos de movilidad, estiramientos y equilibrio
+            Explora nuestra colección de sesiones de movilidad, equilibrio, fuerza funcional y espalda sana
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -68,7 +85,7 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredVideos.map(video => (
           <Card key={video.id} className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow">
-            <div className="h-40 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-950 flex items-center justify-center rounded-t-lg border-b">
+            <div className={`h-40 bg-gradient-to-br ${getCategoryGradient(video.category)} flex items-center justify-center rounded-t-lg border-b`}>
               <div className="text-center">
                 <div className="text-4xl mb-2">{getCategoryIcon(video.category)}</div>
                 <p className="text-sm font-medium text-muted-foreground">

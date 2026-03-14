@@ -1,7 +1,6 @@
 import { MonthPlan, DayPlan } from '@/lib/types';
 import { getMonthNameSpanish, getDayNameSpanish } from '@/lib/scheduling';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -17,8 +16,10 @@ function getDayColor(session: any): string {
   switch (session.type) {
     case 'gym':
       return 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800';
-    case 'stretching':
+    case 'functional-strength':
       return 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800';
+    case 'healthy-back':
+      return 'bg-emerald-50 dark:bg-emerald-950 border-emerald-200 dark:border-emerald-800';
     case 'mobility':
       return 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800';
     case 'balance':
@@ -36,8 +37,10 @@ function getSessionAbbr(session: any): string {
   switch (session.type) {
     case 'gym':
       return 'GYM';
-    case 'stretching':
-      return 'EST';
+    case 'functional-strength':
+      return 'FUE';
+    case 'healthy-back':
+      return 'ESP';
     case 'mobility':
       return 'MOV';
     case 'balance':
@@ -52,15 +55,6 @@ function getSessionAbbr(session: any): string {
 export function MonthlyPlanner({ monthPlan, completedDays = new Set(), onMonthChange }: MonthlyPlannerProps) {
   const monthName = getMonthNameSpanish(monthPlan.month);
   const weekDays = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-
-  // Aplanar todos los días del mes
-  const allDays: DayPlan[] = [];
-  for (const week of monthPlan.weeks) {
-    allDays.push(...week.days);
-  }
-
-  // Filtrar solo los días del mes actual
-  const monthDays = allDays.filter(day => day.date.getMonth() === monthPlan.month);
 
   return (
     <div className="space-y-6">
@@ -167,14 +161,18 @@ export function MonthlyPlanner({ monthPlan, completedDays = new Set(), onMonthCh
           {/* Leyenda */}
           <div className="mt-8 pt-6 border-t">
             <h4 className="text-sm font-semibold mb-3">Leyenda</h4>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+            <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-blue-50 dark:bg-blue-950 rounded border border-blue-200" />
                 <span>Gimnasio</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-purple-50 dark:bg-purple-950 rounded border border-purple-200" />
-                <span>Estiramientos</span>
+                <span>Fuerza Funcional</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-emerald-50 dark:bg-emerald-950 rounded border border-emerald-200" />
+                <span>Espalda Sana</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-green-50 dark:bg-green-950 rounded border border-green-200" />

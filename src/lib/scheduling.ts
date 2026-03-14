@@ -10,13 +10,22 @@ const GYM_SESSION: Session = {
   description: 'Sesión planificada por MyVitale',
 };
 
-const STRETCHING_SESSION: Session = {
-  id: 'stretching-session',
-  type: 'stretching',
-  title: 'Estiramientos',
+const FUNCTIONAL_STRENGTH_SESSION: Session = {
+  id: 'functional-strength-session',
+  type: 'functional-strength',
+  title: 'Fuerza Funcional',
   duration: 35,
-  objective: 'Mejorar flexibilidad y reducir tensión',
-  description: 'Rutina de estiramientos',
+  objective: 'Mejorar fuerza y capacidad funcional',
+  description: 'Rutina de ejercicios funcionales',
+};
+
+const HEALTHY_BACK_SESSION: Session = {
+  id: 'healthy-back-session',
+  type: 'healthy-back',
+  title: 'Espalda Sana',
+  duration: 25,
+  objective: 'Mejorar la salud y movilidad de la espalda',
+  description: 'Ejercicios específicos para la espalda',
 };
 
 const MOBILITY_SESSION: Session = {
@@ -46,16 +55,15 @@ const RECOVERY_SESSION: Session = {
   description: 'Día de recuperación activa',
 };
 
-// Patrón de distribución semanal: gym, home, gym, home, home, recovery, rest
-// El patrón es determinista basado en la semana del año
+// Patrón de distribución semanal: gym, back, gym, mobility, functional, balance, rest
 const WEEKLY_PATTERN = [
-  GYM_SESSION,           // Lunes
-  STRETCHING_SESSION,    // Martes
-  GYM_SESSION,           // Miércoles
-  MOBILITY_SESSION,      // Jueves
-  BALANCE_SESSION,       // Viernes
-  RECOVERY_SESSION,      // Sábado
-  null,                  // Domingo
+  GYM_SESSION,                 // Lunes
+  HEALTHY_BACK_SESSION,        // Martes
+  GYM_SESSION,                 // Miércoles
+  MOBILITY_SESSION,            // Jueves
+  FUNCTIONAL_STRENGTH_SESSION,   // Viernes
+  BALANCE_SESSION,             // Sábado
+  null,                        // Domingo
 ];
 
 /**
@@ -68,12 +76,16 @@ export function generateWeekPlan(weekNumber: number, startDate: Date): WeekPlan 
     const currentDate = new Date(startDate);
     currentDate.setDate(currentDate.getDate() + i);
     
+    // El patrón empieza en Lunes (índice 0 en WEEKLY_PATTERN)
+    // getDay() devuelve 0 para Domingo, 1 para Lunes, etc.
     const dayOfWeek = currentDate.getDay();
-    const session = WEEKLY_PATTERN[dayOfWeek];
+    // Ajustar para que Lunes sea 0
+    const adjustedIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const session = WEEKLY_PATTERN[adjustedIndex];
     
     days.push({
       date: currentDate,
-      dayOfWeek,
+      dayOfWeek: adjustedIndex,
       session,
       completed: false,
     });
@@ -97,7 +109,9 @@ export function generateMonthPlan(year: number, month: number): MonthPlan {
   // Ajustar al lunes más cercano (inicio de semana)
   const dayOfWeek = firstDay.getDay();
   const startDate = new Date(firstDay);
-  startDate.setDate(firstDay.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1));
+  // Si es domingo (0), retroceder 6 días. Si es otro día (1-6), retroceder dayOfWeek-1 días.
+  const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  startDate.setDate(firstDay.getDate() - diff);
   
   let currentDate = new Date(startDate);
   let weekNumber = 1;
@@ -196,6 +210,6 @@ export function getMonthNameSpanish(month: number): string {
  * Obtiene el nombre del día de la semana en español
  */
 export function getDayNameSpanish(dayOfWeek: number): string {
-  const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   return days[dayOfWeek];
 }

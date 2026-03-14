@@ -1,6 +1,6 @@
 // Tipos para FitDailyMG
 
-export type SessionType = 'gym' | 'stretching' | 'mobility' | 'balance' | 'recovery';
+export type SessionType = 'mobility' | 'balance' | 'functional-strength' | 'healthy-back' | 'gym' | 'recovery';
 
 export interface Session {
   id: string;
