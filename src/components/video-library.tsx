@@ -3,7 +3,7 @@ import { VIDEOS, getCategoryLabel, getAllCategories } from '@/lib/video-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Activity, Zap, Dumbbell, Shield, Clock } from 'lucide-react';
+import { Activity, Zap, Shield, Clock, LayoutGrid } from 'lucide-react';
 
 interface VideoLibraryProps {
   onSelectVideo?: (videoId: string) => void;
@@ -11,29 +11,21 @@ interface VideoLibraryProps {
 
 function getCategoryIcon(category: string) {
   switch (category) {
-    case 'mobility':
-      return <Activity className="w-4 h-4" />;
-    case 'balance':
-      return <Zap className="w-4 h-4" />;
-    case 'functional-strength':
-      return <Dumbbell className="w-4 h-4" />;
-    case 'healthy-back':
-      return <Shield className="w-4 h-4" />;
+    case 'back-mobility':
+      return <Shield className="w-4 h-4" />; // Spine/Back icon
+    case 'balance-coord':
+      return <Activity className="w-4 h-4" />; // Balance icon
     default:
-      return null;
+      return <LayoutGrid className="w-4 h-4" />;
   }
 }
 
 function getCategoryGradient(category: string) {
   switch (category) {
-    case 'mobility':
-      return 'from-sky-100 to-cyan-50 dark:from-sky-900 dark:to-cyan-950';
-    case 'balance':
-      return 'from-amber-100 to-yellow-50 dark:from-amber-900 dark:to-yellow-950';
-    case 'functional-strength':
-      return 'from-purple-100 to-violet-50 dark:from-purple-900 dark:to-violet-950';
-    case 'healthy-back':
+    case 'back-mobility':
       return 'from-emerald-100 to-green-50 dark:from-emerald-900 dark:to-green-950';
+    case 'balance-coord':
+      return 'from-blue-100 to-cyan-50 dark:from-blue-900 dark:to-cyan-950';
     default:
       return 'from-blue-100 to-blue-50 dark:from-blue-900 dark:to-blue-950';
   }
@@ -41,7 +33,10 @@ function getCategoryGradient(category: string) {
 
 export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const categories = getAllCategories();
+  
+  // Only use the two main categories requested
+  const categories = ['back-mobility', 'balance-coord'];
+  
   const filteredVideos = selectedCategory 
     ? VIDEOS.filter(v => v.category === selectedCategory)
     : VIDEOS;
@@ -52,7 +47,7 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
         <CardHeader>
           <CardTitle className="text-2xl">Biblioteca de ejercicios</CardTitle>
           <CardDescription>
-            Explora nuestra colección de sesiones de movilidad, equilibrio, fuerza funcional y espalda sana
+            Explora nuestra colección de sesiones de espalda sana, movilidad, equilibrio y coordinación
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -99,10 +94,6 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
             </CardHeader>
             <CardContent className="flex-1 flex flex-col justify-between pb-4">
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm">
-                  <Clock className="w-4 h-4 text-muted-foreground" />
-                  <span>{video.duration} minutos</span>
-                </div>
                 <div>
                   <Badge variant="secondary" className="text-xs">
                     {video.level === 'principiante' && '🟢 Principiante'}

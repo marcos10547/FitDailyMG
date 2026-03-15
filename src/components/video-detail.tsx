@@ -42,16 +42,7 @@ export function VideoDetail({ video, onBack }: VideoDetailProps) {
         </div>
 
         {/* Metadata */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Card className="border-0">
-            <CardContent className="pt-6 flex items-center gap-3">
-              <Clock className="w-5 h-5 text-primary" />
-              <div>
-                <p className="text-sm text-muted-foreground">Duración</p>
-                <p className="font-semibold">{video.duration} minutos</p>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 gap-4">
           <Card className="border-0">
             <CardContent className="pt-6 flex items-center gap-3">
               <Target className="w-5 h-5 text-green-600" />

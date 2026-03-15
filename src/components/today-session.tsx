@@ -36,8 +36,8 @@ export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <Zap className="w-6 h-6 text-amber-500" />
+            <CardTitle className="text-2xl flex items-center gap-3">
+              <img src="/logo-circle.jpg" alt="" className="w-8 h-8 rounded-full shadow-sm" />
               Tu sesión de hoy
             </CardTitle>
             <CardDescription className="mt-2">

@@ -13,11 +13,12 @@ export function Navbar() {
     <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-40">
       <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-          <div className="p-2 rounded-lg bg-primary/10">
-            <Zap className="w-5 h-5 text-primary" />
-          </div>
-          <span>FitDailyMG</span>
+        <Link to="/" className="flex items-center gap-2">
+          <img 
+            src="/logo-full.png" 
+            alt="FitDailyMG Logo" 
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         {/* Desktop Navigation */}

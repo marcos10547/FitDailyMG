@@ -11,17 +11,17 @@ export function HeroSection() {
   return (
     <section className="px-4 py-12 md:py-20 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
       <div className="mx-auto max-w-2xl text-center">
-        {/* Icon */}
+        {/* Logo */}
         <div className="mb-6 flex justify-center">
-          <div className="rounded-full bg-primary/10 p-4">
-            <Zap className="h-10 w-10 text-primary" />
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-full bg-primary/20 blur-xl animate-pulse" />
+            <img 
+              src="/logo-circle.jpg" 
+              alt="Logo FitDaily MG" 
+              className="relative h-24 w-24 md:h-32 md:w-32 rounded-full border-4 border-white shadow-xl"
+            />
           </div>
         </div>
-
-        {/* Title */}
-        <h1 className="mb-3 text-4xl font-bold tracking-tight text-foreground md:text-5xl text-balance">
-          FitDailyMG
-        </h1>
 
         {/* Subtitle */}
         <p className="mb-8 text-xl text-muted-foreground md:text-2xl text-pretty">
