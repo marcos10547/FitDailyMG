@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DayPlan, Session } from '@/lib/types';
 import { formatDateSpanish, getDayNameSpanish } from '@/lib/scheduling';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,10 +7,12 @@ import { Dumbbell, Zap } from 'lucide-react';
 
 interface TodaySessionProps {
   dayPlan: DayPlan | null;
-  onComplete?: (dayPlan: DayPlan) => void;
+  onComplete?: (dayPlan: DayPlan, score: number) => void;
 }
 
 export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
+  const [score, setScore] = useState<number>(8);
+
   if (!dayPlan || !dayPlan.session) {
     return (
       <Card className="border-0 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950 dark:to-blue-950">
@@ -74,10 +77,28 @@ export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
             <p className="text-sm text-muted-foreground italic">
               Dirígete a la aplicación MyVitale para ver los detalles completos de tu sesión.
             </p>
+            
+            {!dayPlan.completed && (
+              <div className="space-y-3 py-2">
+                <label className="text-sm font-medium">¿Cómo sentiste la sesión? Puntúa del 1 al 10:</label>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                    <button 
+                      key={n}
+                      className={`w-8 h-8 rounded-full text-xs font-bold transition-all ${score === n ? 'bg-primary text-primary-foreground scale-110 shadow-md' : 'bg-muted hover:bg-muted/80'}`}
+                      onClick={() => setScore(n)}
+                    >
+                      {n}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <Button 
-              onClick={() => onComplete?.(dayPlan)}
+              onClick={() => onComplete?.(dayPlan, score)}
               disabled={dayPlan.completed}
-              className="w-full bg-blue-600 hover:bg-blue-700"
+              className="w-full bg-blue-600 hover:bg-blue-700 mt-2"
               size="lg"
             >
               {dayPlan.completed ? '✓ Sesión completada' : 'Marcar como completada'}
@@ -91,7 +112,7 @@ export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
                 {session.description}
               </p>
               <div className="flex items-center flex-wrap gap-4 text-sm font-medium mb-4">
-                <span className="bg-muted px-2 py-1 rounded-md">⏱️ {session.duration} minutos</span>
+                <span className="bg-muted px-2 py-1 rounded-md">⏱️ {(session.type === 'healthy-back' || session.type === 'balance') ? '20 - 40' : session.duration} minutos</span>
                 <span className="bg-muted px-2 py-1 rounded-md">🎯 {session.objective}</span>
               </div>
               <p className="text-sm mb-4">
@@ -99,19 +120,37 @@ export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col gap-4">
               <Button 
                 onClick={() => window.location.href = "/biblioteca"}
                 variant="outline"
-                className="w-full sm:flex-1"
+                className="w-full"
                 size="lg"
               >
                 Abrir en Biblioteca
               </Button>
+
+              {!dayPlan.completed && (
+                <div className="space-y-3 py-2 border-t mt-2 pt-4">
+                  <label className="text-sm font-medium">¿Cómo sentiste la sesión? Puntúa del 1 al 10:</label>
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                      <button 
+                        key={n}
+                        className={`w-8 h-8 rounded-full text-xs font-bold transition-all ${score === n ? 'bg-primary text-primary-foreground scale-110 shadow-md' : 'bg-muted hover:bg-muted/80'}`}
+                        onClick={() => setScore(n)}
+                      >
+                        {n}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <Button 
-                onClick={() => onComplete?.(dayPlan)}
+                onClick={() => onComplete?.(dayPlan, score)}
                 disabled={dayPlan.completed}
-                className="w-full sm:flex-1 bg-green-600 hover:bg-green-700"
+                className="w-full bg-green-600 hover:bg-green-700"
                 size="lg"
               >
                 {dayPlan.completed ? '✓ Sesión completada' : 'Marcar completada'}

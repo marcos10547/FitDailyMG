@@ -5,13 +5,16 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { Trophy, Flame, Target, Activity, Dumbbell, Home as HomeIcon, Clock } from 'lucide-react';
 import { generateMonthPlan } from '@/lib/scheduling';
 
+import { Star } from 'lucide-react';
+
 interface ProgressTrackingProps {
   completedDays: Set<string>;
+  completedScores?: Record<string, number>;
   currentMonth: number;
   currentYear: number;
 }
 
-export function ProgressTracking({ completedDays, currentMonth, currentYear }: ProgressTrackingProps) {
+export function ProgressTracking({ completedDays, completedScores = {}, currentMonth, currentYear }: ProgressTrackingProps) {
   // Generar plan para comparar datos reales
   const monthPlan = useMemo(() => generateMonthPlan(currentYear, currentMonth), [currentYear, currentMonth]);
   const allDays = useMemo(() => monthPlan.weeks.flatMap(w => w.days), [monthPlan]);
@@ -84,6 +87,14 @@ export function ProgressTracking({ completedDays, currentMonth, currentYear }: P
       }
     }
 
+    const avgScoreCalc = () => {
+      const scoresArray = Array.from(completedDays)
+        .map(date => completedScores[date])
+        .filter(s => s !== undefined && s > 0);
+      if (scoresArray.length === 0) return 0;
+      return (scoresArray.reduce((acc, val) => acc + val, 0) / scoresArray.length);
+    };
+
     return {
       thisMonth: thisMonth.length,
       thisWeek: thisWeek.length,
@@ -91,9 +102,10 @@ export function ProgressTracking({ completedDays, currentMonth, currentYear }: P
       streak,
       gymSessions,
       homeSessions,
-      totalMinutes
+      totalMinutes,
+      avgScore: avgScoreCalc()
     };
-  }, [completedDays, currentMonth, currentYear, allDays]);
+  }, [completedDays, completedScores, currentMonth, currentYear, allDays]);
 
   // Datos para gráfico semanal
   const weeklyData = useMemo(() => {
@@ -177,7 +189,23 @@ export function ProgressTracking({ completedDays, currentMonth, currentYear }: P
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <Card className="border-0 bg-yellow-50/50 dark:bg-yellow-950/20">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-yellow-700 dark:text-yellow-300 flex items-center gap-2">
+              <Star className="w-4 h-4" />
+              Nota Media
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-baseline gap-2">
+              <div className="text-3xl font-bold text-yellow-700 dark:text-yellow-400">{stats.avgScore > 0 ? stats.avgScore.toFixed(1) : '-'}</div>
+              <div className="text-sm font-medium opacity-90 text-yellow-600 dark:text-yellow-500">/ 10</div>
+            </div>
+            <p className="text-xs text-yellow-600 dark:text-yellow-500 mt-1">Cómo te has sentido</p>
+          </CardContent>
+        </Card>
+
         <Card className="border-0 bg-blue-50/50 dark:bg-blue-950/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-blue-700 dark:text-blue-300 flex items-center gap-2">

@@ -81,17 +81,27 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
         {filteredVideos.map(video => (
           <Card 
             key={video.id} 
-            className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow"
+            className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow overflow-hidden"
             onClick={() => onSelectVideo?.(video.id)}
           >
-            <div className={`h-40 bg-gradient-to-br ${getCategoryGradient(video.category)} flex items-center justify-center rounded-t-lg border-b`}>
-              <div className="text-center">
-                <div className="text-4xl mb-2">{getCategoryIcon(video.category)}</div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {getCategoryLabel(video.category)}
-                </p>
+            {video.thumbnail ? (
+              <div className="h-40 w-full relative">
+                <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                  {video.duration} min
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={`h-40 bg-gradient-to-br ${getCategoryGradient(video.category)} flex items-center justify-center border-b`}>
+                <div className="text-center">
+                  <div className="text-4xl mb-2">{getCategoryIcon(video.category)}</div>
+                  <p className="text-sm font-medium text-muted-foreground">
+                    {getCategoryLabel(video.category)}
+                  </p>
+                </div>
+              </div>
+            )}
             <CardHeader className="pb-2">
               <CardTitle className="text-lg">{video.title}</CardTitle>
               <CardDescription className="text-sm">{video.objective}</CardDescription>

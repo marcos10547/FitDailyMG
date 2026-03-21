@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SeguimientoPage() {
   const now = new Date();
-  const { completedDays } = useCompletedDays();
+  const { completedDays, completedScores } = useCompletedDays();
 
   return (
     <main className="min-h-screen bg-background">
@@ -28,6 +28,7 @@ export default function SeguimientoPage() {
 
         <ProgressTracking
           completedDays={completedDays}
+          completedScores={completedScores}
           currentMonth={now.getMonth()}
           currentYear={now.getFullYear()}
         />

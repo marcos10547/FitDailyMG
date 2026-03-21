@@ -14,9 +14,9 @@ const HEALTHY_BACK_SESSION: Session = {
   id: 'healthy-back-session',
   type: 'healthy-back',
   title: 'Espalda Sana',
-  duration: 25,
+  duration: 30,
   objective: 'Mejorar la salud y movilidad de la espalda',
-  description: '5 ejercicios específicos para rehabilitar y desestradas tu espalda sana.',
+  description: 'Se realizará la sesión que toca en su progresión.',
 };
 
 const BALANCE_SESSION: Session = {
@@ -25,7 +25,7 @@ const BALANCE_SESSION: Session = {
   title: 'Equilibrio',
   duration: 30,
   objective: 'Fortalecer equilibrio monopodial y estabilidad de core',
-  description: 'Progresiones de equilibrio mono podal a realizar durante esta semana.',
+  description: 'Se realizará la sesión que toca en su progresión.',
 };
 
 // Generador inteligente de mesociclo progresivo basado en semana del mes (1-4)

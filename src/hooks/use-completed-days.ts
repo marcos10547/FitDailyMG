@@ -15,6 +15,15 @@ export function useCompletedDays() {
     }
   });
 
+  const [completedScores, setCompletedScores] = useState<Record<string, number>>(() => {
+    try {
+      const saved = localStorage.getItem('fitdaily_completed_scores');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
   useEffect(() => {
     const docRef = doc(db, 'users', USER_DOC_ID);
     
@@ -27,9 +36,13 @@ export function useCompletedDays() {
           setCompletedDaysState(freshSet);
           localStorage.setItem('fitdaily_completed_days', JSON.stringify(Array.from(freshSet)));
         }
+        if (data.completedScores) {
+          setCompletedScores(data.completedScores);
+          localStorage.setItem('fitdaily_completed_scores', JSON.stringify(data.completedScores));
+        }
       } else {
         // Documento inicial si no existe
-        setDoc(docRef, { completedDays: [], lastUpdated: new Date().toISOString() }, { merge: true });
+        setDoc(docRef, { completedDays: [], completedScores: {}, lastUpdated: new Date().toISOString() }, { merge: true });
       }
     }, (error) => {
       console.warn("⚠️ Error Firestore (modo offline o credenciales):", error.message);
@@ -37,8 +50,11 @@ export function useCompletedDays() {
 
     // Mantener la sincronización entre pestañas locales por si acaso
     const handleStorageChange = () => {
-      const saved = localStorage.getItem('fitdaily_completed_days');
-      if (saved) setCompletedDaysState(new Set(JSON.parse(saved)));
+      const savedDays = localStorage.getItem('fitdaily_completed_days');
+      if (savedDays) setCompletedDaysState(new Set(JSON.parse(savedDays)));
+      
+      const savedScores = localStorage.getItem('fitdaily_completed_scores');
+      if (savedScores) setCompletedScores(JSON.parse(savedScores));
     };
 
     window.addEventListener('fitdaily_update', handleStorageChange);
@@ -48,14 +64,18 @@ export function useCompletedDays() {
     };
   }, []);
 
-  const addCompletedDay = async (dateStr: string) => {
+  const addCompletedDay = async (dateStr: string, score: number = 10) => {
     // 1. Actualización optimista (UI rápida)
     const newSet = new Set(completedDays);
     newSet.add(dateStr);
     setCompletedDaysState(newSet);
     
+    const newScores = { ...completedScores, [dateStr]: score };
+    setCompletedScores(newScores);
+    
     // 2. Respaldo LocalStorage
     localStorage.setItem('fitdaily_completed_days', JSON.stringify(Array.from(newSet)));
+    localStorage.setItem('fitdaily_completed_scores', JSON.stringify(newScores));
     window.dispatchEvent(new Event('fitdaily_update'));
 
     // 3. Sincronización en la nube (Firestore)
@@ -63,6 +83,7 @@ export function useCompletedDays() {
       const docRef = doc(db, 'users', USER_DOC_ID);
       await setDoc(docRef, {
         completedDays: Array.from(newSet),
+        completedScores: newScores,
         lastUpdated: new Date().toISOString()
       }, { merge: true });
     } catch (error) {
@@ -70,5 +91,5 @@ export function useCompletedDays() {
     }
   };
 
-  return { completedDays, addCompletedDay };
+  return { completedDays, completedScores, addCompletedDay };
 }

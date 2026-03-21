@@ -20,9 +20,9 @@ export default function HoyPage() {
     return plan;
   }, [now, completedDays]);
 
-  const handleCompleteSession = (dayPlan: any) => {
+  const handleCompleteSession = (dayPlan: any, score: number) => {
     const dateStr = dayPlan.date.toISOString().split('T')[0];
-    addCompletedDay(dateStr);
+    addCompletedDay(dateStr, score);
     navigate('/seguimiento');
   };
 

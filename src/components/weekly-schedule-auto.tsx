@@ -112,7 +112,7 @@ export function WeeklyScheduleAuto({ weekPlan }: WeeklyScheduleAutoProps) {
                       <span className="text-xs font-medium line-clamp-2">{day.session.title}</span>
                     </div>
                     <Badge variant={getSessionBadgeVariant(day.session.type)} className="text-xs w-full justify-center">
-                      {day.session.duration} min
+                      {(day.session.type === 'healthy-back' || day.session.type === 'balance') ? '20-40 min' : `${day.session.duration} min`}
                     </Badge>
                     {day.completed && (
                       <div className="text-xs font-bold text-green-600 dark:text-green-400 text-center">
@@ -202,11 +202,11 @@ export function WeeklyScheduleAuto({ weekPlan }: WeeklyScheduleAutoProps) {
                         <p className="font-medium text-sm text-muted-foreground">Progreso de equilibrio mono podal:</p>
                         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-[300px] overflow-y-auto pr-2">
                           {[
-                            "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                            "https://images.unsplash.com/photo-1552825906-f4ce2ae0fde6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                            "https://images.unsplash.com/photo-1588286840104-a4bba89542a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                            "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                            "https://images.unsplash.com/photo-1522898467493-49726bf28798?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                            "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                            "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                            "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
+                            "https://images.unsplash.com/photo-1556816483-34e8dceea0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                           ].map((imgSrc, i) => (
                             <img 
                               key={i} 
@@ -222,7 +222,7 @@ export function WeeklyScheduleAuto({ weekPlan }: WeeklyScheduleAutoProps) {
                     <div className="space-y-2">
                       <p className="font-medium">Detalles de la rutina:</p>
                       <ul className="space-y-1 text-sm text-muted-foreground list-disc pl-4">
-                        <li><strong>Duración:</strong> {selectedDay.session.duration} minutos</li>
+                        <li><strong>Duración:</strong> {(selectedDay.session.type === 'healthy-back' || selectedDay.session.type === 'balance') ? 'Entre 20 y 40' : selectedDay.session.duration} minutos</li>
                         <li><strong>Objetivo:</strong> {selectedDay.session.objective}</li>
                       </ul>
                       {selectedDay.session.description && (
