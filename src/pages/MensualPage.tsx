@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCompletedDays } from '@/hooks/use-completed-days';
 import { generateMonthPlan } from '@/lib/scheduling';
 import { MonthlyPlanner } from '@/components/monthly-planner';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 
-export default function MonthPage() {
+export default function MensualPage() {
   const now = new Date();
   const [monthOffset, setMonthOffset] = useState(0);
+  const { completedDays } = useCompletedDays();
   
   const targetDate = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
   const monthPlan = generateMonthPlan(targetDate.getFullYear(), targetDate.getMonth());
@@ -24,7 +26,7 @@ export default function MonthPage() {
 
         <MonthlyPlanner 
           monthPlan={monthPlan}
-          completedDays={new Set()}
+          completedDays={completedDays}
           onMonthChange={setMonthOffset}
         />
       </div>

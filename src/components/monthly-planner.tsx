@@ -104,10 +104,10 @@ export function MonthlyPlanner({ monthPlan, completedDays = new Set(), onMonthCh
                   <h3 className="text-sm font-semibold text-muted-foreground">
                     Semana {week.weekNumber}
                   </h3>
-                  <div className="grid grid-cols-7 gap-2">
+                  <div className="grid grid-cols-7 gap-1 sm:gap-2">
                     {/* Encabezados de día */}
                     {weekDays.map((day, idx) => (
-                      <div key={`header-${idx}`} className="text-xs font-semibold text-center text-muted-foreground">
+                      <div key={`header-${idx}`} className="text-[10px] sm:text-xs font-semibold text-center text-muted-foreground truncate">
                         {day}
                       </div>
                     ))}
@@ -127,22 +127,19 @@ export function MonthlyPlanner({ monthPlan, completedDays = new Set(), onMonthCh
                           return (
                             <div
                               key={dateStr}
-                              className={`p-2 rounded-lg border border-2 text-center text-xs space-y-1 ${getDayColor(
+                              className={`p-1 sm:p-2 rounded-md sm:rounded-lg border-2 text-center text-[10px] sm:text-xs space-y-0.5 sm:space-y-1 flex flex-col items-center justify-center min-h-[50px] sm:min-h-[70px] ${getDayColor(
                                 day.session
                               )} ${isCompleted ? 'ring-2 ring-green-500' : ''}`}
                             >
                               <div className="font-bold">{day.date.getDate()}</div>
                               {day.session ? (
                                 <>
-                                  <div className="font-semibold">
+                                  <div className="font-semibold truncate w-full">
                                     {getSessionAbbr(day.session)}
-                                  </div>
-                                  <div className="text-xs font-medium opacity-75">
-                                    {day.session.duration}m
                                   </div>
                                 </>
                               ) : (
-                                <div className="text-xs opacity-50">Descanso</div>
+                                <div className="text-[9px] sm:text-xs opacity-50 truncate">Descanso</div>
                               )}
                               {isCompleted && (
                                 <div className="text-green-600 font-bold">✓</div>
@@ -161,30 +158,18 @@ export function MonthlyPlanner({ monthPlan, completedDays = new Set(), onMonthCh
           {/* Leyenda */}
           <div className="mt-8 pt-6 border-t">
             <h4 className="text-sm font-semibold mb-3">Leyenda</h4>
-            <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-blue-50 dark:bg-blue-950 rounded border border-blue-200" />
                 <span>Gimnasio</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-purple-50 dark:bg-purple-950 rounded border border-purple-200" />
-                <span>Fuerza Funcional</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-emerald-50 dark:bg-emerald-950 rounded border border-emerald-200" />
                 <span>Espalda Sana</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-green-50 dark:bg-green-950 rounded border border-green-200" />
-                <span>Movilidad</span>
-              </div>
-              <div className="flex items-center gap-2">
                 <div className="w-6 h-6 bg-amber-50 dark:bg-amber-950 rounded border border-amber-200" />
                 <span>Equilibrio</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 bg-rose-50 dark:bg-rose-950 rounded border border-rose-200" />
-                <span>Recuperación</span>
               </div>
             </div>
           </div>

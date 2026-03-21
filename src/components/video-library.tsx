@@ -79,7 +79,11 @@ export function VideoLibrary({ onSelectVideo }: VideoLibraryProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredVideos.map(video => (
-          <Card key={video.id} className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow">
+          <Card 
+            key={video.id} 
+            className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow"
+            onClick={() => onSelectVideo?.(video.id)}
+          >
             <div className={`h-40 bg-gradient-to-br ${getCategoryGradient(video.category)} flex items-center justify-center rounded-t-lg border-b`}>
               <div className="text-center">
                 <div className="text-4xl mb-2">{getCategoryIcon(video.category)}</div>

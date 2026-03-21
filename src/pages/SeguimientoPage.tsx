@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCompletedDays } from '@/hooks/use-completed-days';
 import { ProgressTracking } from '@/components/progress-tracking';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function ProgressPage() {
+export default function SeguimientoPage() {
   const now = new Date();
-  const [completedDays, setCompletedDays] = useState<Set<string>>(new Set());
+  const { completedDays } = useCompletedDays();
 
   return (
     <main className="min-h-screen bg-background">

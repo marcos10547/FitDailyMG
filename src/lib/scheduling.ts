@@ -10,31 +10,13 @@ const GYM_SESSION: Session = {
   description: 'Sesión planificada por MyVitale',
 };
 
-const FUNCTIONAL_STRENGTH_SESSION: Session = {
-  id: 'functional-strength-session',
-  type: 'functional-strength',
-  title: 'Fuerza Funcional',
-  duration: 35,
-  objective: 'Mejorar fuerza y capacidad funcional',
-  description: 'Rutina de ejercicios funcionales',
-};
-
 const HEALTHY_BACK_SESSION: Session = {
   id: 'healthy-back-session',
   type: 'healthy-back',
   title: 'Espalda Sana',
   duration: 25,
   objective: 'Mejorar la salud y movilidad de la espalda',
-  description: 'Ejercicios específicos para la espalda',
-};
-
-const MOBILITY_SESSION: Session = {
-  id: 'mobility-session',
-  type: 'mobility',
-  title: 'Movilidad',
-  duration: 40,
-  objective: 'Aumentar rango de movimiento',
-  description: 'Ejercicios de movilidad articular',
+  description: '5 ejercicios específicos para rehabilitar y desestradas tu espalda sana.',
 };
 
 const BALANCE_SESSION: Session = {
@@ -42,32 +24,58 @@ const BALANCE_SESSION: Session = {
   type: 'balance',
   title: 'Equilibrio',
   duration: 30,
-  objective: 'Fortalecer equilibrio y estabilidad',
-  description: 'Ejercicios de equilibrio',
+  objective: 'Fortalecer equilibrio monopodial y estabilidad de core',
+  description: 'Progresiones de equilibrio mono podal a realizar durante esta semana.',
 };
 
-const RECOVERY_SESSION: Session = {
-  id: 'recovery-session',
-  type: 'recovery',
-  title: 'Recuperación',
-  duration: 15,
-  objective: 'Descanso activo y recuperación',
-  description: 'Día de recuperación activa',
-};
+// Generador inteligente de mesociclo progresivo basado en semana del mes (1-4)
+function getSessionForDay(weekNumber: number, dayOfWeekIndex: number): Session | null {
+  // dayOfWeekIndex: 0 = Lunes, 1 = Martes, ..., 6 = Domingo
+  
+  // Semana 1: 3 Días de entrenamiento (Carga baja)
+  // Lunes: Gym, Miércoles: Espalda, Viernes: Equilibrio
+  if (weekNumber === 1) {
+    if (dayOfWeekIndex === 0) return GYM_SESSION;
+    if (dayOfWeekIndex === 2) return HEALTHY_BACK_SESSION;
+    if (dayOfWeekIndex === 4) return BALANCE_SESSION;
+  }
+  
+  // Semana 2: 4 Días de entrenamiento (Carga media)
+  // Lunes: Gym, Martes: Espalda, Jueves: Gym, Sábado: Equilibrio
+  else if (weekNumber === 2) {
+    if (dayOfWeekIndex === 0) return GYM_SESSION;
+    if (dayOfWeekIndex === 1) return HEALTHY_BACK_SESSION;
+    if (dayOfWeekIndex === 3) return GYM_SESSION;
+    if (dayOfWeekIndex === 5) return BALANCE_SESSION;
+  }
+  
+  // Semana 3: 5 Días de entrenamiento (Carga alta)
+  // Lunes: Gym, Martes: Espalda, Miércoles: Equilibrio, Viernes: Gym, Sábado: Espalda
+  else if (weekNumber === 3) {
+    if (dayOfWeekIndex === 0) return GYM_SESSION;
+    if (dayOfWeekIndex === 1) return HEALTHY_BACK_SESSION;
+    if (dayOfWeekIndex === 2) return BALANCE_SESSION;
+    if (dayOfWeekIndex === 4) return GYM_SESSION;
+    if (dayOfWeekIndex === 5) return HEALTHY_BACK_SESSION;
+  }
+  
+  // Semana 4 y superiores: 6 Días de entrenamiento (Semana de choque / pico)
+  // Lunes: Gym, Martes: Espalda, Miércoles: Equilibrio, Jueves: Gym, Viernes: Espalda, Sábado: Equilibrio
+  else {
+    if (dayOfWeekIndex === 0) return GYM_SESSION;
+    if (dayOfWeekIndex === 1) return HEALTHY_BACK_SESSION;
+    if (dayOfWeekIndex === 2) return BALANCE_SESSION;
+    if (dayOfWeekIndex === 3) return GYM_SESSION;
+    if (dayOfWeekIndex === 4) return HEALTHY_BACK_SESSION;
+    if (dayOfWeekIndex === 5) return BALANCE_SESSION;
+  }
 
-// Patrón de distribución semanal: gym, back, gym, mobility, functional, balance, rest
-const WEEKLY_PATTERN = [
-  GYM_SESSION,                 // Lunes
-  HEALTHY_BACK_SESSION,        // Martes
-  GYM_SESSION,                 // Miércoles
-  MOBILITY_SESSION,            // Jueves
-  FUNCTIONAL_STRENGTH_SESSION,   // Viernes
-  BALANCE_SESSION,             // Sábado
-  null,                        // Domingo
-];
+  // Si no coincide o es domingo (6), es descanso
+  return null;
+}
 
 /**
- * Genera un plan semanal basado en el patrón determinista
+ * Genera un plan semanal dinámico basado en las progresiones del mesociclo
  */
 export function generateWeekPlan(weekNumber: number, startDate: Date): WeekPlan {
   const days: DayPlan[] = [];
@@ -76,12 +84,13 @@ export function generateWeekPlan(weekNumber: number, startDate: Date): WeekPlan 
     const currentDate = new Date(startDate);
     currentDate.setDate(currentDate.getDate() + i);
     
-    // El patrón empieza en Lunes (índice 0 en WEEKLY_PATTERN)
-    // getDay() devuelve 0 para Domingo, 1 para Lunes, etc.
+    // getDay() 0 = DOM, 1 = LUN. Ajustamos para LUN = 0
     const dayOfWeek = currentDate.getDay();
-    // Ajustar para que Lunes sea 0
     const adjustedIndex = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const session = WEEKLY_PATTERN[adjustedIndex];
+    
+    // Normalizamos weekNumber por si excede 4 seguir el patrón máximo (ciclo continuo)
+    const effectiveWeekNumber = weekNumber > 4 ? 4 : weekNumber;
+    const session = getSessionForDay(effectiveWeekNumber, adjustedIndex);
     
     days.push({
       date: currentDate,

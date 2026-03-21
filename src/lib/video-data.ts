@@ -10,7 +10,7 @@ export const VIDEOS: VideoMetadata[] = [
     level: 'principiante',
     objective: 'Aumenta la movilidad de la cadera liberando la tensión en los flexores principales.',
     description: 'Esta sesión detallada se centra en ejercicios que liberan la tensión en los flexores de la cadera y músculos lumbares asociados, mejorando tu postura y alivio lumbar.',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/vC0cwSi-wI4',
     benefits: [
       'Liberación de flexores de cadera',
       'Reducción de tensión lumbar',
@@ -32,7 +32,7 @@ export const VIDEOS: VideoMetadata[] = [
     level: 'principiante',
     objective: 'Desbloquear la zona torácica y mejorar la mecánica de la escápula.',
     description: 'Sesión centrada en desbloquear la zona torácica y mejorar la mecánica de la escápula para una columna más fuerte, funcional y libre de bloqueos.',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/eEv6gTjviNo',
     benefits: [
       'Mejora de la movilidad torácica',
       'Desbloqueo escapular',
@@ -54,7 +54,7 @@ export const VIDEOS: VideoMetadata[] = [
     level: 'principiante',
     objective: 'Abrir y fortalecer la cadena posterior para mejorar la postura.',
     description: 'Ejercicios para abrir y fortalecer la cadena posterior, contrarrestando las posturas sedentarias y mejorando la postura general del cuerpo.',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/llYfRoWbEK4',
     benefits: [
       'Apertura de cadena anterior',
       'Fortalecimiento de cadena posterior',
@@ -76,7 +76,7 @@ export const VIDEOS: VideoMetadata[] = [
     level: 'principiante',
     objective: 'Utilizar la pared para mejorar el rango de movimiento y la fuerza.',
     description: 'Una serie de ejercicios que utilizan la pared para mejorar el rango de movimiento y la fuerza sin necesidad de material complejo, proporcionando una base estable.',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/-Jt4iGPHORM',
     benefits: [
       'Feedback táctil de la pared',
       'Mejora del rango articular',
@@ -98,7 +98,7 @@ export const VIDEOS: VideoMetadata[] = [
     level: 'intermedio',
     objective: 'Rutina integral que trabaja toda la columna vertebral.',
     description: 'Una rutina integral que trabaja y moviliza toda la columna vertebral y sus músculos asociados para una sensación general de alivio y bienestar profundo.',
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    videoUrl: 'https://www.youtube.com/embed/JDFBiE2N9FE',
     benefits: [
       'Movilización integral de columna',
       'Bienestar profundo sostenido',

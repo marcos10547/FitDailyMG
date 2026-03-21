@@ -1,18 +1,21 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
 
+// Configuración de Firebase a través de VITE_ env vars o placeholders
 const firebaseConfig = {
-  apiKey: "AIzaSyBGtnMT6tOmaQE_RiUabhuJ8rIcPPKKfbg",
-  authDomain: "fitdailymg.firebaseapp.com",
-  projectId: "fitdailymg",
-  storageBucket: "fitdailymg.firebasestorage.app",
-  messagingSenderId: "46630643809",
-  appId: "1:46630643809:web:3329654789c7cde6b7e220",
-  measurementId: "G-Y3C9583QH8"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY, 
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// En Next.js, esto evita que se inicialice la app dos veces al recargar
-const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Inicializar Firebase
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 
-export { app, db };
+// Inicializar Analytics solo si estamos en el entorno del cliente
+export const analytics = typeof window !== 'undefined' ? getAnalytics(app) : null;

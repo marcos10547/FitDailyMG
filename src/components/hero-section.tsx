@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
 
+import { useNavigate } from "react-router-dom"
+
 export function HeroSection() {
-  const scrollToTodaySession = () => {
-    document.getElementById("today-session")?.scrollIntoView({ behavior: "smooth" })
-  }
+  const navigate = useNavigate()
 
   return (
     <section className="px-4 py-12 md:py-20 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
@@ -38,14 +38,40 @@ export function HeroSection() {
           </p>
         </div>
 
-        {/* CTA Button */}
-        <Button 
-          onClick={scrollToTodaySession}
-          size="lg" 
-          className="h-16 w-full max-w-md rounded-2xl text-xl font-semibold shadow-lg transition-transform hover:scale-[1.02] md:h-14 md:text-lg"
-        >
-          Ver mi plan de hoy
-        </Button>
+        {/* CTAs */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
+          <Button 
+            onClick={() => navigate('/hoy')}
+            size="lg" 
+            className="h-14 rounded-2xl text-lg font-semibold shadow-lg transition-transform hover:scale-[1.02] bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            Empieza hoy
+          </Button>
+          <Button 
+            onClick={() => navigate('/planificacion')}
+            size="lg" 
+            variant="outline"
+            className="h-14 rounded-2xl text-lg font-semibold shadow-sm transition-transform hover:scale-[1.02] bg-white dark:bg-slate-900 border-primary/20 text-foreground"
+          >
+            Ver planificación semanal
+          </Button>
+          <Button 
+            onClick={() => navigate('/seguimiento')}
+            size="lg" 
+            variant="secondary"
+            className="h-14 rounded-2xl text-lg font-semibold shadow-sm transition-transform hover:scale-[1.02]"
+          >
+            Ver progreso
+          </Button>
+          <Button 
+            onClick={() => navigate('/biblioteca')}
+            size="lg" 
+            variant="ghost"
+            className="h-14 rounded-2xl text-lg font-semibold transition-transform hover:scale-[1.02]"
+          >
+            Explorar vídeos
+          </Button>
+        </div>
       </div>
     </section>
   )

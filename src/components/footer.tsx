@@ -21,18 +21,28 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/videos" className="text-muted-foreground hover:text-foreground">
-                  Biblioteca de videos
+                <Link to="/planificacion" className="text-muted-foreground hover:text-foreground">
+                  Semana
                 </Link>
               </li>
               <li>
-                <Link to="/month" className="text-muted-foreground hover:text-foreground">
-                  Planificación mensual
+                <Link to="/mensual" className="text-muted-foreground hover:text-foreground">
+                  Mes
                 </Link>
               </li>
               <li>
-                <Link to="/progress" className="text-muted-foreground hover:text-foreground">
-                  Mi progreso
+                <Link to="/hoy" className="text-muted-foreground hover:text-foreground">
+                  Hoy
+                </Link>
+              </li>
+              <li>
+                <Link to="/biblioteca" className="text-muted-foreground hover:text-foreground">
+                  Biblioteca
+                </Link>
+              </li>
+              <li>
+                <Link to="/seguimiento" className="text-muted-foreground hover:text-foreground">
+                  Seguimiento
                 </Link>
               </li>
             </ul>
@@ -40,18 +50,18 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-sm mb-4">Categorías</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Gimnasio</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Estiramientos</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Movilidad</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Equilibrio</a></li>
+              <li><Link to="/biblioteca" className="text-muted-foreground hover:text-foreground">Espalda Sana y Movilidad</Link></li>
+              <li><Link to="/biblioteca" className="text-muted-foreground hover:text-foreground">Equilibrio y Coordinación</Link></li>
+              <li><Link to="/planificacion" className="text-muted-foreground hover:text-foreground">Gimnasio</Link></li>
+              <li><Link to="/hoy" className="text-muted-foreground hover:text-foreground">Tu sesión de hoy</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold text-sm mb-4">Información</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Sobre nosotros</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Contacto</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground">Privacidad</a></li>
+              <li><Link to="/sobre" className="text-muted-foreground hover:text-foreground">Sobre FitDailyMG</Link></li>
+              <li><Link to="/contacto" className="text-muted-foreground hover:text-foreground">Contacto</Link></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground cursor-not-allowed">Privacidad</a></li>
             </ul>
           </div>
         </div>

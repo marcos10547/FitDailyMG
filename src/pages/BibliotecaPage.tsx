@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { VideoLibrary } from '@/components/video-library';
 
-export default function VideosPage() {
+export default function BibliotecaPage() {
   const navigate = useNavigate();
 
   const handleSelectVideo = (videoId: string) => {

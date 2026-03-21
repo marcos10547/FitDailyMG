@@ -90,22 +90,33 @@ export function TodaySession({ dayPlan, onComplete }: TodaySessionProps) {
               <p className="text-sm text-muted-foreground mb-3">
                 {session.description}
               </p>
-              <div className="flex items-center gap-4 text-sm font-medium mb-4">
-                <span>⏱️ {session.duration} minutos</span>
-                <span>🎯 {session.objective}</span>
+              <div className="flex items-center flex-wrap gap-4 text-sm font-medium mb-4">
+                <span className="bg-muted px-2 py-1 rounded-md">⏱️ {session.duration} minutos</span>
+                <span className="bg-muted px-2 py-1 rounded-md">🎯 {session.objective}</span>
               </div>
               <p className="text-sm mb-4">
-                Esta sesión te ayudará a mejorar tu movilidad, flexibilidad y estabilidad.
+                Esta sesión te ayudará a mejorar tu movilidad, flexibilidad y estabilidad. Preparada para hacer en casa.
               </p>
             </div>
-            <Button 
-              onClick={() => onComplete?.(dayPlan)}
-              disabled={dayPlan.completed}
-              className="w-full bg-green-600 hover:bg-green-700"
-              size="lg"
-            >
-              {dayPlan.completed ? '✓ Sesión completada' : 'Comenzar sesión'}
-            </Button>
+            
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button 
+                onClick={() => window.location.href = "/biblioteca"}
+                variant="outline"
+                className="w-full sm:flex-1"
+                size="lg"
+              >
+                Abrir en Biblioteca
+              </Button>
+              <Button 
+                onClick={() => onComplete?.(dayPlan)}
+                disabled={dayPlan.completed}
+                className="w-full sm:flex-1 bg-green-600 hover:bg-green-700"
+                size="lg"
+              >
+                {dayPlan.completed ? '✓ Sesión completada' : 'Marcar completada'}
+              </Button>
+            </div>
           </div>
         )}
       </CardContent>

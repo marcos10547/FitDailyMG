@@ -1,4 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useCompletedDays } from '@/hooks/use-completed-days'
 import { generateMonthPlan, getTodaysPlan, getCurrentWeek } from '@/lib/scheduling'
 import { TodaySession } from '@/components/today-session'
 import { WeeklyScheduleAuto } from '@/components/weekly-schedule-auto'
@@ -10,21 +12,35 @@ import { HeroSection } from '@/components/hero-section'
 import { Footer } from '@/components/footer'
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const now = new Date()
-  const [completedDays, setCompletedDays] = useState<Set<string>>(new Set())
+  const { completedDays, addCompletedDay } = useCompletedDays()
   
   const monthPlan = useMemo(() => {
     return generateMonthPlan(now.getFullYear(), now.getMonth())
   }, [now])
   
-  const todaysPlan = getTodaysPlan(monthPlan)
-  const currentWeek = getCurrentWeek(monthPlan)
+  const todaysPlan = useMemo(() => {
+    const plan = getTodaysPlan(monthPlan);
+    if (plan) {
+      plan.completed = completedDays.has(plan.date.toISOString().split('T')[0]);
+    }
+    return plan;
+  }, [monthPlan, completedDays]);
+
+  const currentWeek = useMemo(() => {
+    const week = getCurrentWeek(monthPlan);
+    if (week) {
+      week.days.forEach(d => {
+        d.completed = completedDays.has(d.date.toISOString().split('T')[0]);
+      });
+    }
+    return week;
+  }, [monthPlan, completedDays]);
 
   const handleCompleteSession = (dayPlan: any) => {
     const dateStr = dayPlan.date.toISOString().split('T')[0]
-    const newCompleted = new Set(completedDays)
-    newCompleted.add(dateStr)
-    setCompletedDays(newCompleted)
+    addCompletedDay(dateStr)
   }
 
   return (
@@ -52,7 +68,7 @@ export default function HomePage() {
         </section>
 
         <section id="videos" className="scroll-mt-20">
-          <VideoLibrary />
+          <VideoLibrary onSelectVideo={(id) => navigate(`/videos/${id}`)} />
         </section>
 
         <section id="benefits" className="scroll-mt-20">
